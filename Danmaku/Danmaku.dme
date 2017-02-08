@@ -19,6 +19,7 @@
 
 // BEGIN_INCLUDE
 #include "Bullet.dm"
+#include "BulletHoming.dm"
 #include "BulletSpawner.dm"
 #include "Buttons.dm"
 #include "Clock.dm"

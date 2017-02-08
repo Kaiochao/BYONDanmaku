@@ -15,14 +15,18 @@ var clock/GameClock
 world
 	maxx = 15
 	maxy = 20
-	fps = 30
+	fps = 25
 	mob = /mob/player
 
 	New()
 		..()
+		var turf/t = locate(8, 20, 1)
 		GameClock = new/clock/game_clock
 		GameClock.Start()
-		GameClock.Subscribe(new/obj/bullet_spawner(locate(8,20,1)))
+		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(t))
+		GameClock.Subscribe(new/obj/bullet_spawner/random_3_spread(t))
+		GameClock.Subscribe(new/obj/bullet_spawner/fast_3_spread(t))
+		GameClock.Subscribe(new/obj/bullet_spawner/random_spread(t))
 
 atom
 	// I hear this improves performance client-side

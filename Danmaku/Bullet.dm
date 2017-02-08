@@ -13,6 +13,7 @@ obj/bullet
 	bound_width = 8
 	bound_height = 8
 	overlays = list(.center)
+	blend_mode = BLEND_ADD
 
 	// This gives the white center to the bullet.
 	center
@@ -27,15 +28,10 @@ obj/bullet
 		_velocity_x
 		_velocity_y
 
-	New(atom/loc, velocity_x, velocity_y)
+	New(atom/loc, velocity_x, velocity_y, color = "red")
+		src.color = color
 		_velocity_x = velocity_x
 		_velocity_y = velocity_y
-
-		// Avoid layer fighting
-		// (when things of the same layer flip over each other as they move)
-		var global/l = 0
-		l = (l + 1) % 1e3
-		layer += l * 1e-3
 
 		// Convenience: when given a movable atom as an initial loc,
 		// center on that atom instead of going inside it.
