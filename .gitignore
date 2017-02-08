@@ -1,0 +1,9 @@
+# BYOND
+*.dmb
+*.int
+*.rsc
+*.zip
+*.lk
+*.sav
+include.txt
+backup/

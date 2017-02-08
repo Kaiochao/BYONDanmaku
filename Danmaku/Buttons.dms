@@ -1,0 +1,3 @@
+macro
+	Any return ".button-press \[\[*]]"
+	Any+up return ".button-release \[\[*]]"
