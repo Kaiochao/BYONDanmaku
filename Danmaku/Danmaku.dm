@@ -20,13 +20,13 @@ world
 
 	New()
 		..()
-		var turf/t = locate(8, 20, 1)
 		GameClock = new/clock/game_clock
+		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(locate(10, 20, 1)))
+		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(locate(6, 20, 1)))
+		GameClock.Subscribe(new/obj/bullet_spawner/random_3_spread(locate(3, 20, 1)))
+		GameClock.Subscribe(new/obj/bullet_spawner/fast_3_spread(locate(13, 20, 1)))
+		GameClock.Subscribe(new/obj/bullet_spawner/random_spread(locate(8, 20, 1)))
 		GameClock.Start()
-		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(t))
-		GameClock.Subscribe(new/obj/bullet_spawner/random_3_spread(t))
-		GameClock.Subscribe(new/obj/bullet_spawner/fast_3_spread(t))
-		GameClock.Subscribe(new/obj/bullet_spawner/random_spread(t))
 
 atom
 	// I hear this improves performance client-side

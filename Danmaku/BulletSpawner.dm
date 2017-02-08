@@ -65,7 +65,7 @@ obj/bullet_spawner
 		var
 			_side_spread = 15
 
-		New(atom/loc) ..(loc, 5, spread = 5)
+		New(atom/loc, interval = 5, start_time, spread = 5, min_speed, max_speed) ..()
 
 		Fire(speed, angle, main = TRUE)
 			..()
@@ -78,7 +78,7 @@ obj/bullet_spawner
 		_color = "yellow"
 		_side_spread = 4
 
-		New(atom/loc) ..(loc, 15, 0, 0, 16, 16)
+		New(atom/loc, interval = 15, start_time = 0, spread = 0, min_speed = 16, max_speed = 16) ..()
 
 	random_spread
 		_color = rgb(0, 255, 0)
