@@ -24,6 +24,7 @@ clock
 		tick_lag
 		list/_subscribers
 		_is_started
+		_is_stopped
 
 	New(
 		is_paused = TRUE,
@@ -36,18 +37,27 @@ clock
 		_time = start_time
 		_subscribers = subscribers
 		_is_started = FALSE
+		_is_stopped = FALSE
+		unless(_is_paused) Start()
 
 	proc
 		Subscribe(datum/s)		unless(s in _subscribers)	_subscribers += s
 		Unsubscribe(datum/s)	if(s in _subscribers)			_subscribers -= s
+		Pause() _is_paused = TRUE
+		Unpause() _is_paused = FALSE
+		Stop() _is_stopped = TRUE
 
 		Start()
 			set waitfor = FALSE, background = TRUE
-			unless(_is_started)
+			if(_is_paused) Unpause()
+			if(_is_stopped) _is_stopped = FALSE
+			else unless(_is_started)
 				_is_started = TRUE
-				for()
-					Tick()
+				until(_is_stopped)
+					unless(_is_paused) Tick()
 					sleep _interval
+				_is_started = FALSE
+				_is_stopped = FALSE
 
 		Tick()
 			set waitfor = FALSE, background = TRUE

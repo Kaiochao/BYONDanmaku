@@ -12,9 +12,10 @@ obj/bullet_spawner
 		_next_spawn_time
 		_color
 
-	New(atom/loc, interval = 0, start_time = -1)
+	New(atom/loc, interval = 0, start_time = -1, color)
 		_spawn_interval = interval
 		_next_spawn_time = start_time
+		_color = color
 
 	Update()
 		if(world.time >= _next_spawn_time)
@@ -42,12 +43,15 @@ obj/bullet_spawner
 				new/obj/bullet/homing(src, target, 12, rgb(255, 255, 0), 30)
 
 	multi_angle
-		_color = "blue"
-
 		var
 			_angle_interval
 
-		New(atom/loc, interval = 5, start_time, angle_interval = 8)
+		New(atom/loc,
+				interval = 5,
+				start_time,
+				color = "blue",
+				angle_interval = 8
+			)
 			..()
 			_angle_interval = angle_interval
 
@@ -58,37 +62,20 @@ obj/bullet_spawner
 				if(angle in 90 to 270)
 					Fire(8, angle)
 
-	random_3_spread
-		parent_type = .random_spread
-		_color = "red"
-
-		var
-			_side_spread = 15
-
-		New(atom/loc, interval = 5, start_time, spread = 5, min_speed, max_speed) ..()
-
-		Fire(speed, angle, main = TRUE)
-			..()
-			if(main)
-				Fire(speed, angle - _side_spread, FALSE)
-				Fire(speed, angle + _side_spread, FALSE)
-
-	fast_3_spread
-		parent_type = .random_3_spread
-		_color = "yellow"
-		_side_spread = 4
-
-		New(atom/loc, interval = 15, start_time = 0, spread = 0, min_speed = 16, max_speed = 16) ..()
-
 	random_spread
-		_color = rgb(0, 255, 0)
-
 		var
 			_spread
 			_min_speed
 			_max_speed
 
-		New(atom/loc, interval = 2, start_time, spread = 60, min_speed = 6, max_speed = 12)
+		New(atom/loc,
+				interval = 2,
+				start_time,
+				color = rgb(0, 255, 0),
+				spread = 60,
+				min_speed = 6,
+				max_speed = 12
+			)
 			..()
 			_spread = spread
 			_min_speed = min_speed
@@ -107,3 +94,41 @@ obj/bullet_spawner
 			// Get the angle from the spawner to the center of another atom.
 			AngleTo(atom/other)
 				return atan2(other.CenterX() - CenterX(), other.CenterY() - CenterY())
+
+	random_3_spread
+		parent_type = .random_spread
+
+		var
+			_side_spread
+
+		New(atom/loc,
+				interval = 5,
+				start_time,
+				color = "red",
+				spread = 5,
+				min_speed,
+				max_speed,
+				side_spread = 15
+			)
+			..()
+			_side_spread = side_spread
+
+		Fire(speed, angle, main = TRUE)
+			..()
+			if(main)
+				Fire(speed, angle - _side_spread, FALSE)
+				Fire(speed, angle + _side_spread, FALSE)
+
+	fast_3_spread
+		parent_type = .random_3_spread
+
+		New(atom/loc,
+				interval = 15,
+				start_time = 0,
+				color = "yellow",
+				spread = 0,
+				min_speed = 16,
+				max_speed = 16,
+				side_spread = 4
+			)
+			..()

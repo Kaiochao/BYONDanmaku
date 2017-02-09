@@ -15,18 +15,21 @@ var clock/GameClock
 world
 	maxx = 15
 	maxy = 20
-	fps = 25
+	fps = 60
 	mob = /mob/player
 
 	New()
 		..()
-		GameClock = new/clock/game_clock
-		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(locate(10, 20, 1)))
-		GameClock.Subscribe(new/obj/bullet_spawner/multi_angle(locate(6, 20, 1)))
-		GameClock.Subscribe(new/obj/bullet_spawner/random_3_spread(locate(3, 20, 1)))
-		GameClock.Subscribe(new/obj/bullet_spawner/fast_3_spread(locate(13, 20, 1)))
-		GameClock.Subscribe(new/obj/bullet_spawner/random_spread(locate(8, 20, 1)))
-		GameClock.Start()
+		GameClock = new/clock/game_clock(
+			is_paused = FALSE,
+			subscribers = list(
+				new/obj/bullet_spawner/multi_angle(locate(10, 20, 1)),
+				new/obj/bullet_spawner/multi_angle(locate(6, 20, 1)),
+				new/obj/bullet_spawner/random_3_spread(locate(3, 20, 1)),
+				new/obj/bullet_spawner/fast_3_spread(locate(13, 20, 1)),
+				new/obj/bullet_spawner/random_spread(locate(8, 20, 1))
+			)
+		)
 
 atom
 	// I hear this improves performance client-side
